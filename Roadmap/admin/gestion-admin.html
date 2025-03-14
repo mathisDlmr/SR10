@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion des Admins</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: 'Nunito Sans', sans-serif; }
+    </style>
+</head>
+<body class="bg-gray-100 flex">
+    <aside class="w-64 bg-white h-screen shadow-lg p-5">
+        <h1 class="text-xl font-bold text-[#5A8CFF] mb-6">SR10</h1>
+        <nav>
+            <ul class="space-y-4">
+                <li><a href="gestion-admin.html" class="block text-gray-700 hover:text-[#5A8CFF]">👤 Gestion des Admins</a></li>
+                <li><a href="gestion-comptes.html" class="block text-gray-700 hover:text-[#5A8CFF]">📋 Gestion des Comptes</a></li>
+                <li><a href="gestion-organisations.html" class="block text-gray-700 hover:text-[#5A8CFF]">🏢 Gestion des Organisations</a></li>
+                <li><a href="association-organisations.html" class="block text-gray-700 hover:text-[#5A8CFF]">🔗 Association Organisation</a></li>
+            </ul>
+        </nav>
+    </aside>
+    <div class="flex-1 flex flex-col">
+        <header class="bg-white shadow-md py-4 px-6 flex justify-between items-center">
+            <h2 class="text-xl font-semibold text-gray-700">Gestion des Admins</h2>
+            <img src="https://cdn-icons-png.flaticon.com/128/3135/3135715.png" class="w-10 h-10 rounded-full">
+        </header>
+        <main class="p-6">
+            <h1 class="text-2xl font-bold text-gray-700 mb-4">Liste des Administrateurs</h1>
+            <div class="bg-white shadow-md rounded-lg p-4">
+                <table class="w-full border-collapse">
+                    <thead>
+                        <tr class="bg-[#5A8CFF] text-white">
+                            <th class="p-3 text-left">Nom-Prénom</th>
+                            <th class="p-3 text-left">Téléphone</th>
+                            <th class="p-3 text-left">Email</th>
+                            <th class="p-3 text-left">Statut</th>
+                            <th class="p-3 text-center">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="border-b">
+                            <td class="p-3">Dupont Jean</td>
+                            <td class="p-3">06 12 34 56 78</td>
+                            <td class="p-3">jean.dupont@mail.com</td>
+                            <td class="p-3"><span class="bg-green-200 text-green-700 px-2 py-1 rounded">Actif</span></td>
+                            <td class="p-3 flex justify-center space-x-3">
+                                <button class="bg-yellow-400 text-white px-3 py-1 rounded">✏️ Modifier</button>
+                                <button class="bg-red-500 text-white px-3 py-1 rounded">🗑 Supprimer</button>
+                            </td>
+                        </tr>
+                        <tr class="border-b">
+                            <td class="p-3">Martin Léa</td>
+                            <td class="p-3">07 89 65 43 21</td>
+                            <td class="p-3">lea.martin@mail.com</td>
+                            <td class="p-3"><span class="bg-red-200 text-red-700 px-2 py-1 rounded">Inactif</span></td>
+                            <td class="p-3 flex justify-center space-x-3">
+                                <button class="bg-yellow-400 text-white px-3 py-1 rounded">✏️ Modifier</button>
+                                <button class="bg-red-500 text-white px-3 py-1 rounded">🗑 Supprimer</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
