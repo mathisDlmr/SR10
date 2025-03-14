@@ -1,0 +1,4 @@
+Script JS pour vérifier le password : composés d'au minimum 12 caractères comprenant des majuscules, des minuscules, des chiffres et des caractères spéciaux à choisir dans une liste d'au moins 37 caractères spéciaux possibles
+gestion-admin : Pagination, fonction de recherche, ajout d'un admin
+gestion-organisations : pagination, fonction de recherche, filtre validé/refusé/en attente
+association-organisations : paginations, fonction de recherche, [Ajouter le téléphone du recruteur.ice]

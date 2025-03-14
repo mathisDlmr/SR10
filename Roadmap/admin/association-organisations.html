@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Association à une organisation</title>
+    <link rel="icon" href="https://www.utc.fr/wp-content/uploads/sites/28/2024/05/favicon.png" sizes="32x32" />
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        nunito: ["Nunito", "sans-serif"],
+                    },
+                    colors: {
+                        primary: "#4880FF",
+                        secondary: "#5A8CFF"
+                    }
+                }
+            }
+        };
+    </script>
+    <script defer>
+        function openDeletePopup() {
+            document.getElementById("deletePopup").classList.remove("hidden");
+        }
+
+        function closeDeletePopup() {
+            document.getElementById("deletePopup").classList.add("hidden");
+        }
+
+        function openAcceptPopup() {
+            document.getElementById("acceptPopup").classList.remove("hidden");
+        }
+
+        function closeAcceptPopup() {
+            document.getElementById("acceptPopup").classList.add("hidden");
+        }
+    </script>
+</head>
+<body class="bg-gray-100 flex font-nunito">
+    <aside class="w-64 bg-white h-screen shadow-lg p-5 flex flex-col">
+        <div class="flex flex-row self-center"><h1 class="text-4xl font-extrabold text-[#5A8CFF] mb-6 text-center">SR</h1><h1 class="text-4xl font-extrabold text-black mb-6 text-center">10</h1></div>
+        <nav>
+            <ul class="space-y-2">
+                <li>
+                    <a href="gestion-admin.html"
+                       class="flex items-center gap-3 text-gray-700 font-medium p-3 rounded-lg transition-all duration-300 hover:bg-[#5A8CFF] hover:text-white">
+                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 5.25a3 3 0 0 1 3 3m3 0a6 6 0 0 1-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1 1 21.75 8.25Z" />
+                      </svg>
+                       <span>Gestion des Admins</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="gestion-comptes.html"
+                       class="flex items-center gap-3 text-gray-700 font-medium p-3 rounded-lg transition-all duration-300 hover:bg-[#5A8CFF] hover:text-white">
+                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />
+                      </svg>
+                      <span>Gestion des Comptes</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="gestion-organisations.html"
+                       class="flex items-center gap-3 text-gray-700 font-medium p-3 rounded-lg transition-all duration-300 hover:bg-[#5A8CFF] hover:text-white">
+                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Z" />
+                      </svg>
+                      <span>Gestion des Organisations</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="association-organisations.html"
+                       class="flex items-center gap-3 text-gray-700 bg-gray-200 font-medium p-3 rounded-lg transition-all duration-300 hover:bg-[#5A8CFF] hover:text-white">
+                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 0 1 1.242 7.244l-4.5 4.5a4.5 4.5 0 0 1-6.364-6.364l1.757-1.757m13.35-.622 1.757-1.757a4.5 4.5 0 0 0-6.364-6.364l-4.5 4.5a4.5 4.5 0 0 0 1.242 7.244" />
+                      </svg>
+                       <span>Association Organisation</span>
+                       <div class="w-5 h-12 bg-blue-800 absolute -left-2 rounded-full"></div>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+
+    <div class="flex-1 flex flex-col">
+        <main class="p-6">
+            <h1 class="text-2xl font-bold text-gray-700 mb-4">Demandes d'association</h1>
+            <div class="bg-white shadow-md rounded-lg overflow-hidden">
+                <table class="w-full border-collapse">
+                    <thead>
+                        <tr class="bg-[#5A8CFF] text-white text-left">
+                            <th class="p-4">Recruteur.ice</th>
+                            <th class="p-4">Email recruteur.ice</th>
+                            <th class="p-4">Organisation demandée</th>
+                            <th class="p-4">Statut</th>
+                            <th class="p-4 text-center">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="border-b hover:bg-gray-50 transition">
+                            <td class="p-4">Jean Dupont</td>
+                            <td class="p-4">jean.dupont@mail.fr</td>
+                            <td class="p-4">TechCorp</td>
+                            <td class="p-4">
+                                <span class="bg-yellow-100 text-yellow-700 px-2 py-1 rounded text-sm font-semibold">En attente</span>
+                            </td>
+                            <td class="p-4 flex justify-center space-x-4">
+                                <button class="relative px-4 py-2 text-green-600 font-bold transition-colors duration-300 group" onclick="openAcceptPopup()">
+                                    <span class="relative z-10 flex">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+                                        </svg>
+                                        Accepter
+                                    </span>
+                                    <span class="absolute left-0 bottom-0 w-0 h-[2px] bg-green-600 transition-all duration-300 group-hover:w-full"></span>
+                                    <span class="absolute right-0 bottom-0 h-0 w-[2px] bg-green-600 transition-all delay-150 duration-300 group-hover:h-full"></span>
+                                    <span class="absolute right-0 top-0 w-0 h-[2px] bg-green-600 transition-all delay-300 duration-300 group-hover:w-full"></span>
+                                    <span class="absolute left-0 top-0 h-0 w-[2px] bg-green-600 transition-all delay-450 duration-300 group-hover:h-full"></span>
+                                </button>
+
+                                <button class="relative px-4 py-2 text-red-600 font-bold transition-colors duration-300 group" onclick="openDeletePopup()">
+                                    <span class="relative z-10 flex">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                                        </svg>
+                                        Refuser
+                                    </span>
+                                    <span class="absolute left-0 bottom-0 w-0 h-[2px] bg-red-600 transition-all duration-300 group-hover:w-full"></span>
+                                    <span class="absolute right-0 bottom-0 h-0 w-[2px] bg-red-600 transition-all delay-150 duration-300 group-hover:h-full"></span>
+                                    <span class="absolute right-0 top-0 w-0 h-[2px] bg-red-600 transition-all delay-300 duration-300 group-hover:w-full"></span>
+                                    <span class="absolute left-0 top-0 h-0 w-[2px] bg-red-600 transition-all delay-450 duration-300 group-hover:h-full"></span>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+        <div id="deletePopup" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center hidden">
+            <div class="bg-white rounded-lg shadow-lg p-6 w-96 relative">
+                <button onclick="closeDeletePopup()" class="absolute top-3 right-3 text-gray-500 hover:text-gray-700">
+                    ✖
+                </button>
+                <div class="flex justify-center mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-12 h-12 text-red-500">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                    </svg>
+                </div>
+                <h2 class="text-xl font-bold text-gray-800 text-center">Refuser l'association</h2>
+                <p class="text-gray-600 text-center mt-2">Êtes-vous sûr de vouloir faire cela ?</p>
+                <div class="flex justify-between mt-6">
+                    <button onclick="closeDeletePopup()" class="px-4 py-2 rounded bg-gray-200 text-gray-700 hover:bg-gray-300">
+                        Annuler
+                    </button>
+                    <button class="px-4 py-2 rounded bg-red-600 text-white hover:bg-red-700">
+                        Refuser
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="acceptPopup" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center hidden">
+            <div class="bg-white rounded-lg shadow-lg p-6 w-96 relative">
+                <button onclick="closeAcceptPopup()" class="absolute top-3 right-3 text-gray-500 hover:text-gray-700">
+                    ✖
+                </button>
+                <div class="flex justify-center align-center mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-12 h-12 text-green-500">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15.75 15.75 11.25M21 12a9 9 0 1 0-18 0 9 9 0 0 0 18 0Z" />
+                    </svg>
+                </div>
+                <h2 class="text-xl font-bold text-gray-800 text-center">Accepter l'association</h2>
+                <p class="text-gray-600 text-center mt-2">Êtes-vous sûr de vouloir accepter cette association ?</p>
+                <div class="flex justify-between mt-6">
+                    <button onclick="closeAcceptPopup()" class="px-4 py-2 rounded bg-gray-200 text-gray-700 hover:bg-gray-300">
+                        Annuler
+                    </button>
+                    <button class="px-4 py-2 rounded bg-green-600 text-white hover:bg-green-700">
+                        Accepter
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
