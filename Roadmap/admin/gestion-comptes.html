@@ -23,6 +23,22 @@
         };
     </script>
     <script defer>
+        document.addEventListener("DOMContentLoaded", function () {
+            const profileBtn = document.getElementById("profileBtn");
+            const profilePopup = document.getElementById("profilePopup");
+
+            profileBtn.addEventListener("click", function(event) {
+                event.stopPropagation(); 
+                profilePopup.classList.toggle("hidden");
+            });
+
+            document.addEventListener("click", function(event) {
+                if (!profilePopup.contains(event.target) && event.target !== profileBtn) {
+                    profilePopup.classList.add("hidden");
+                }
+            });
+        });
+
         function openDeletePopup() {
             document.getElementById("deletePopup").classList.remove("hidden");
         }
@@ -43,13 +59,33 @@
 <body class="bg-gray-100 flex font-nunito">
     <aside class="w-64 bg-white h-screen shadow-lg p-5 flex flex-col sticky top-0">
         <div class="flex justify-evenly items-center self-start mb-6">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-10">
-                <path fill-rule="evenodd" d="M18.685 19.097A9.723 9.723 0 0 0 21.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 0 0 3.065 7.097A9.716 9.716 0 0 0 12 21.75a9.716 9.716 0 0 0 6.685-2.653Zm-12.54-1.285A7.486 7.486 0 0 1 12 15a7.486 7.486 0 0 1 5.855 2.812A8.224 8.224 0 0 1 12 20.25a8.224 8.224 0 0 1-5.855-2.438ZM15.75 9a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" clip-rule="evenodd" />
-            </svg>
+            <button id="profileBtn">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-10">
+                    <path fill-rule="evenodd" d="M18.685 19.097A9.723 9.723 0 0 0 21.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 0 0 3.065 7.097A9.716 9.716 0 0 0 12 21.75a9.716 9.716 0 0 0 6.685-2.653Zm-12.54-1.285A7.486 7.486 0 0 1 12 15a7.486 7.486 0 0 1 5.855 2.812A8.224 8.224 0 0 1 12 20.25a8.224 8.224 0 0 1-5.855-2.438ZM15.75 9a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" clip-rule="evenodd" />
+                </svg>
+            </button>
             <div class="flex flex-row items-center mx-4">
                 <h1 class="text-4xl font-extrabold text-[#5A8CFF] text-center">SR</h1>
                 <h1 class="text-4xl font-extrabold text-black text-center">10</h1>
             </div>
+        </div>
+        <div id="profilePopup" class="absolute top-14 left-2 bg-white border border-gray-300 rounded-lg shadow-lg w-64 p-4 hidden">
+            <div class="flex items-center space-x-3 border-b border-gray-200 pb-3 pl-4">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-9">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                </svg>                  
+                <div>
+                    <h2 class="text-lg font-semibold text-gray-800">John Doe</h2>
+                    <p class="text-sm text-gray-500">Mon compte</p>
+                </div>
+            </div>
+        
+            <a href="../index.html" class="mt-3 inline-block w-full flex items-center justify-center gap-2 py-2 text-red-600 font-medium rounded-lg hover:bg-red-100 transition">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 9V5.25A2.25 2.25 0 0 1 10.5 3h6a2.25 2.25 0 0 1 2.25 2.25v13.5A2.25 2.25 0 0 1 16.5 21h-6a2.25 2.25 0 0 1-2.25-2.25V15m-3 0-3-3m0 0 3-3m-3 3H15" />
+                </svg>                  
+                Se Déconnecter
+            </a>
         </div>
     
         <nav>
