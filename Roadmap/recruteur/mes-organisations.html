@@ -3,54 +3,277 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Recruteur</title>
+    <title>Mes Organisations</title>
+    <link rel="icon" href="https://www.utc.fr/wp-content/uploads/sites/28/2024/05/favicon.png" sizes="32x32" />
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        body { font-family: 'Nunito Sans', sans-serif; }
-    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        nunito: ["Nunito", "sans-serif"],
+                    },
+                    colors: {
+                        primary: "#4880FF",
+                        secondary: "#5A8CFF"
+                    }
+                }
+            }
+        };
+    </script>
+    <script defer>
+        document.addEventListener("DOMContentLoaded", function () {
+            const searchInput = document.getElementById("searchInput");
+            const tableRows = document.querySelectorAll("#organisationTable tbody tr");
+
+            searchInput.addEventListener("input", function () {
+                const query = searchInput.value.toLowerCase();
+                tableRows.forEach(row => {
+                    const text = row.textContent.toLowerCase();
+                    row.style.display = text.includes(query) ? "" : "none";
+                });
+            });
+
+            let currentPage = 1;
+            const rowsPerPage = 6;
+            const rows = Array.from(tableRows);
+            const totalPages = Math.ceil(rows.length / rowsPerPage);
+            updateTable();
+
+            document.getElementById("prevPage").addEventListener("click", function () {
+                if (currentPage > 1) {
+                    currentPage--;
+                    updateTable();
+                }
+            });
+
+            document.getElementById("nextPage").addEventListener("click", function () {
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    updateTable();
+                }
+            });
+
+            function updateTable() {
+                rows.forEach((row, index) => {
+                    row.style.display = (index >= (currentPage - 1) * rowsPerPage && index < currentPage * rowsPerPage) ? "" : "none";
+                });
+                document.getElementById("pageNumber").textContent = `${currentPage} / ${totalPages}`;
+            }
+        });
+
+        document.addEventListener("DOMContentLoaded", function () {
+            let filterButton = document.getElementById("filterButton");
+            let filterMenu = document.getElementById("filterMenu");
+
+            if (!filterButton || !filterMenu) {
+                console.error("filterButton ou filterMenu introuvable !");
+                return;
+            }
+
+            filterButton.addEventListener("click", function () {
+                filterMenu.classList.toggle("hidden");
+            });
+
+            document.addEventListener("click", function (event) {
+                if (!filterMenu.contains(event.target) && !filterButton.contains(event.target)) {
+                    filterMenu.classList.add("hidden");
+                }
+            });
+        });
+
+        function openAddPopup() {
+            document.getElementById("addPopup").classList.remove("hidden");
+        }
+
+        function closeAddPopup() {
+            document.getElementById("addPopup").classList.add("hidden");
+        }
+
+        function addOrganisation() {
+            const siren = document.getElementById("organisationSiren").value;
+            if (siren) {
+                alert(`Demande pour rejoindre ${siren} !`);
+                closeAddPopup();
+            }
+        }
+    </script>
 </head>
-<body class="bg-gray-100 flex">
-    <aside class="w-64 bg-white h-screen shadow-lg p-5">
-        <h1 class="text-xl font-bold text-[#5A8CFF] mb-6">SR10</h1>
+<body class="bg-gray-100 flex font-nunito">
+    <aside class="w-64 bg-white h-screen shadow-lg p-5 flex flex-col sticky top-0">
+        <div class="flex justify-evenly items-center self-start mb-6">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-10">
+                <path fill-rule="evenodd" d="M18.685 19.097A9.723 9.723 0 0 0 21.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 0 0 3.065 7.097A9.716 9.716 0 0 0 12 21.75a9.716 9.716 0 0 0 6.685-2.653Zm-12.54-1.285A7.486 7.486 0 0 1 12 15a7.486 7.486 0 0 1 5.855 2.812A8.224 8.224 0 0 1 12 20.25a8.224 8.224 0 0 1-5.855-2.438ZM15.75 9a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" clip-rule="evenodd" />
+            </svg>
+            <div class="flex flex-row items-center mx-4">
+                <h1 class="text-4xl font-extrabold text-[#5A8CFF] text-center">SR</h1>
+                <h1 class="text-4xl font-extrabold text-black text-center">10</h1>
+            </div>
+        </div>
+    
         <nav>
             <ul class="space-y-4">
-                <li><a href="recruteur.html" class="block text-gray-700 hover:text-[#5A8CFF]">🏠 Tableau de bord</a></li>
-                <li><a href="rejoindre-organisation.html" class="block text-gray-700 hover:text-[#5A8CFF]">🏢 Rejoindre une Organisation</a></li>
-                <li><a href="mes-organisations.html" class="block text-gray-700 hover:text-[#5A8CFF]">📂 Mes Organisations</a></li>
-                <li><a href="ajouter-offre.html" class="block text-gray-700 hover:text-[#5A8CFF]">➕ Ajouter une Offre</a></li>
-                <li><a href="mes-offres.html" class="block text-gray-700 hover:text-[#5A8CFF]">📋 Mes Offres</a></li>
-                <li><a href="candidats-offres.html" class="block text-gray-700 hover:text-[#5A8CFF]">👥 Candidats à mes Offres</a></li>
+                <li class="font-bold text-gray-600 uppercase">Administration</li>
+                <li>
+                    <a href="../admin/gestion-admin.html" class="flex items-center gap-3 text-gray-700 font-medium p-3 rounded-lg transition-all duration-300 hover:bg-[#5A8CFF] hover:text-white">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 5.25a3 3 0 0 1 3 3m3 0a6 6 0 0 1-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1 1 21.75 8.25Z" />
+                        </svg>
+                        <span>Gestion des Admins</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../admin/gestion-comptes.html" class="flex items-center gap-3 text-gray-700 font-medium p-3 rounded-lg transition-all duration-300 hover:bg-[#5A8CFF] hover:text-white">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />
+                        </svg>
+                        <span>Gestion des Comptes</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../admin/gestion-organisations.html" class="flex items-center gap-3 text-gray-700 font-medium p-3 rounded-lg transition-all duration-300 hover:bg-[#5A8CFF] hover:text-white">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Z" />
+                        </svg>
+                        <span>Gestion des Organisations</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../admin/association-organisations.html" class="flex items-center gap-3 text-gray-700 font-medium p-3 rounded-lg transition-all duration-300 hover:bg-[#5A8CFF] hover:text-white">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 0 1 1.242 7.244l-4.5 4.5a4.5 4.5 0 0 1-6.364-6.364l1.757-1.757m13.35-.622 1.757-1.757a4.5 4.5 0 0 0-6.364-6.364l-4.5 4.5a4.5 4.5 0 0 0 1.242 7.244" />
+                        </svg>
+                        <span>Association Organisation</span>
+                    </a>
+                </li>
+    
+                <li class="font-bold text-gray-600 uppercase mt-4">Espace Recruteur.ice</li>
+                <li>
+                    <a href="../recruteur/mes-organisations.html" class="flex items-center gap-3 text-gray-700 bg-gray-200 font-medium p-3 rounded-lg transition-all duration-300 hover:bg-[#5A8CFF] hover:text-white">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Z" />
+                        </svg>
+                        <span>Mes Organisations</span>
+                        <div class="w-5 h-12 bg-blue-700 absolute -left-2 rounded-full"></div>
+                    </a>
+                </li>
+                <li>
+                    <a href="../recruteur/gestion-offres.html" class="flex items-center gap-3 text-gray-700 font-medium p-3 rounded-lg transition-all duration-300 hover:bg-[#5A8CFF] hover:text-white">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
+                        </svg>                          
+                        <span>Gestion des Offres</span>
+                    </a>
+                </li>
+    
+                <li class="font-bold text-gray-600 uppercase mt-4">Espace Candidat.e</li>
+                <li>
+                    <a href="../candidat/liste-offres.html" class="flex items-center gap-3 text-gray-700 font-medium p-3 rounded-lg transition-all duration-300 hover:bg-[#5A8CFF] hover:text-white">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 0 1-2.25 2.25M16.5 7.5V18a2.25 2.25 0 0 0 2.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 0 0 2.25 2.25h13.5M6 7.5h3v3H6v-3Z" />
+                        </svg>
+                        <span>Voir les Offres</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../candidat/mes-candidatures.html" class="flex items-center gap-3 text-gray-700 font-medium p-3 rounded-lg transition-all duration-300 hover:bg-[#5A8CFF] hover:text-white">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 9h3.75M15 12h3.75M15 15h3.75M4.5 19.5h15a2.25 2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25v10.5A2.25 2.25 0 0 0 4.5 19.5Zm6-10.125a1.875 1.875 0 1 1-3.75 0 1.875 1.875 0 0 1 3.75 0Zm1.294 6.336a6.721 6.721 0 0 1-3.17.789 6.721 6.721 0 0 1-3.168-.789 3.376 3.376 0 0 1 6.338 0Z" />
+                        </svg>                          
+                        <span>Mes Candidatures</span>
+                    </a>
+                </li>
             </ul>
         </nav>
     </aside>
     <div class="flex-1 flex flex-col">
-        <header class="bg-white shadow-md py-4 px-6 flex justify-between items-center">
-            <h2 class="text-xl font-semibold text-gray-700">Dashboard Recruteur</h2>
-            <img src="https://cdn-icons-png.flaticon.com/128/3135/3135715.png" class="w-10 h-10 rounded-full">
-        </header>
         <main class="p-6">
-            <h1 class="text-2xl font-bold text-gray-700 mb-4">Mes Organisations</h1>
-            <div class="bg-white shadow-md rounded-lg p-4">
-                <table class="w-full border-collapse">
+            <div class="flex justify-between items-center mb-4 p-4">
+                <h1 class="text-3xl font-bold text-gray-700">Mes Organisations</h1>
+                <div class="flex space-x-2 relative">
+                    <div class="flex items-center bg-white rounded-lg shadow-md">
+                        <label class="p-2 text-gray-500" for="searchInput">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                            </svg>
+                        </label>
+                        <input id="searchInput" type="text" placeholder="Rechercher..." class="w-full py-2 px-2 mr-2 text-gray-700 text-lg rounded-lg outline-none focus:ring-2 focus:ring-primary">
+                    </div>
+                    <button onclick="openAddPopup()" class="bg-blue-500 text-white px-4 py-2 rounded-lg shadow transition-all duration-300 hover:bg-blue-700">
+                        Nouvelle Demande
+                    </button>
+                    <button id="filterButton" class="p-2 border rounded-lg shadow bg-white hover:bg-gray-100">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" 
+                            stroke="currentColor" class="w-6 h-6 text-gray-600">
+                            <path stroke-linecap="round" stroke-linejoin="round" 
+                                d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 0 1-.659 1.591l-5.432 5.432a2.25 2.25 0 0 0-.659 1.591v2.927a2.25 2.25 0 0 1-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 0 0-.659-1.591L3.659 7.409A2.25 2.25 0 0 1 3 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0 1 12 3Z" />
+                        </svg>
+                    </button>            
+                    <div id="filterMenu" class="absolute top-12 right-0 bg-white border rounded-lg shadow-lg p-4 w-48 hidden">
+                        <label for="statusFilter" class="block text-gray-700 font-semibold mb-2">Filtrer par statut</label>
+                        <select id="statusFilter" class="w-full p-2 border rounded-lg">
+                            <option value="">Tous</option>
+                            <option value="accepté">Accepté</option>
+                            <option value="refusé">Refusé</option>
+                            <option value="en attente">En attente</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white shadow-md rounded-lg overflow-hidden">
+                <table id="organisationTable" class="w-full border-collapse">
                     <thead>
-                        <tr class="bg-[#5A8CFF] text-white">
-                            <th class="p-3 text-left">Nom</th>
-                            <th class="p-3 text-left">Statut</th>
-                            <th class="p-3 text-center">Actions</th>
+                        <tr class="bg-[#5A8CFF] text-white text-left">
+                            <th class="p-4">SIREN</th>
+                            <th class="py-4 px-2">Nom de l'Organisation</th>
+                            <th class="py-4 px-2">Type</th>
+                            <th class="py-4 px-2">Siège Social</th>
+                            <th class="py-4 px-2">Statut</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="border-b">
-                            <td class="p-3">TechCorp</td>
-                            <td class="p-3"><span class="bg-green-200 text-green-700 px-2 py-1 rounded">Membre</span></td>
-                            <td class="p-3 text-center">
-                                <button class="bg-red-500 text-white px-3 py-1 rounded">Quitter</button>
+                        <tr class="border-b hover:bg-gray-50 transition">
+                            <td class="p-4">443 169 524</td>
+                            <td class="p-4">TechCorp</td>
+                            <td class="p-4">Sarl</td>
+                            <td class="p-4">30 Rue du Troubadour, Paris</td>
+                            <td class="p-4">
+                                <span class="bg-yellow-100 text-yellow-700 px-2 py-1 rounded text-sm font-semibold">En attente</span>
+                            </td>
+                        </tr>
+                        <tr class="border-b hover:bg-gray-50 transition">
+                            <td class="p-4">552 178 639</td>
+                            <td class="p-4">MediLab</td>
+                            <td class="p-4">Association</td>
+                            <td class="p-4">54 Avenue des Zouaves, Lille</td>
+                            <td class="p-4">
+                                <span class="bg-red-100 text-red-700 px-2 py-1 rounded text-sm font-semibold">Refusé</span>
                             </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
+            <div class="flex justify-between items-center mt-4">
+                <button id="prevPage" class="px-4 py-2 bg-gray-300 rounded-lg shadow transition-all duration-300 hover:bg-gray-400">
+                    Précédent
+                </button>
+                <span id="pageNumber" class="text-gray-700">1 / 1</span>
+                <button id="nextPage" class="px-4 py-2 bg-gray-300 rounded-lg shadow transition-all duration-300 hover:bg-gray-400">
+                    Suivant
+                </button>
+            </div>
         </main>
+        <div id="addPopup" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center hidden">
+            <div class="bg-white p-6 rounded-lg shadow-lg w-96">
+                <h2 class="text-2xl font-bold mb-4">Rejoindre une Organisation</h2>
+                <input type="text" id="organisationSiren" placeholder="Siren de l'Organisation" class="w-full p-2 border rounded mb-4" pattern="\d{9}" maxlength="9" minlength="9" inputmode="numeric" required/>
+                <div class="flex justify-end space-x-2">
+                    <button onclick="closeAddPopup()" class="px-4 py-2 bg-gray-300 rounded-lg">Annuler</button>
+                    <button onclick="addOrganisation()" class="px-4 py-2 bg-blue-500 text-white rounded-lg">Demander</button>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 </html>
